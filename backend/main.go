@@ -1,15 +1,41 @@
 package main
 
 import (
-	"net/http"
+	"log"
 
 	"github.com/gin-gonic/gin"
+	"github.com/kazukikanomata/backend/config"
+	"github.com/kazukikanomata/backend/database"
+	"github.com/kazukikanomata/backend/routes"
 )
 
 func main() {
+
+	cfg := config.Load()
+
+	if err := database.Connect(cfg); err !=nil {
+		log.Fatalf("Failed to connect to database: %v", err)
+	}
+	defer database.Close()
+
 	r := gin.Default()
-	r.GET("/ping", func(c *gin.Context) {
-		c.JSON(http.StatusOK, gin.H{"message": "pong"})
+
+	r.Use(func(c *gin.Context) {
+		c.Writer.Header().Set("Access-Control-Allow-Origin", "*")
+		c.Writer.Header().Set("Access-Control-Allow-Credentials", "true")
+		c.Writer.Header().Set("Access-Control-Allow-Headers", "Content-Type, Content-Length, Accept-Encoding, X-CSRF-Token, Authorization, accept, origin, Cache-Control, X-Requested-With")
+		c.Writer.Header().Set("Access-Control-Allow-Methods", "POST, OPTIONS, GET, PUT, DELETE")
+		if c.Request.Method == "OPTIONS" {
+			c.AbortWithStatus(204)
+			return
+		}
+		c.Next()
 	})
-	r.Run(":8080")
+
+	routes.SetupRoutes(r)
+
+	
+	if err := r.Run(":" + cfg.ServerPort); err !=nil {
+		log.Fatalf("Failed to start server: %v", err)
+	}
 }

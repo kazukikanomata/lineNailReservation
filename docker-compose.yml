@@ -1,0 +1,78 @@
+version: "3.9"
+services:
+  db:
+    image: mysql:8.4
+    container_name: mysql_line_reserv
+    environment:
+      MYSQL_ROOT_PASSWORD: rootpass
+      MYSQL_DATABASE: line_reserv_db
+      MYSQL_USER: kazuki
+      MYSQL_PASSWORD: 25251061k
+      TZ: Asia/Tokyo
+    ports:
+      - "3306:3306"
+    volumes:
+      - db_data:/var/lib/mysql
+    networks:
+      - line_reserv_network
+    healthcheck:
+      test:
+        [
+          "CMD",
+          "mysqladmin",
+          "ping",
+          "-h",
+          "localhost",
+          "-u",
+          "root",
+          "-prootpass",
+        ]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+
+  # アプリケーションとDBとの接続周り設定
+  api:
+    build:
+      context: ./backend
+      dockerfile: Dockerfile
+    container_name: api_line_reserv
+    ports:
+      - "8080:8080"
+    environment:
+      DB_HOST: db
+      DB_PORT: 3306
+      DB_USER: kazuki
+      DB_PASSWORD: 25251061k
+      DB_NAME: line_reserv_db
+    depends_on:
+      db:
+        condition: service_healthy
+    networks:
+      - line_reserv_network
+    restart: unless-stopped
+
+  frontend:
+    build:
+      context: ./frontend
+      dockerfile: Dockerfile
+    container_name: frontend_line_reserv
+    ports:
+      - "3000:3000"
+    environment:
+      VITE_API_BASE_URL: /api/v1
+    depends_on:
+      - api
+    networks:
+      - line_reserv_network
+    volumes:
+      - ./frontend:/app
+      - /app/node_modules
+
+volumes:
+  db_data:
+
+# ipアドレス定義ではなくホスト名で指定することで利用をしやすくする
+networks:
+  line_reserv_network:
+    driver: bridge
