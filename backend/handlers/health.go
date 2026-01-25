@@ -15,7 +15,16 @@ func NewHealthHandler() *HealthHandler {
 }
 
 func (h *HealthHandler) Ping(c *gin.Context) {
-	if err := database.DB.Ping(); err !=nil {
+	sqlDB, err := database.GetDB().DB()
+	if err != nil {
+		c.JSON(http.StatusServiceUnavailable, gin.H{
+			"message": "pong",
+			"db_status": "disconnected",
+			"error": err.Error(),
+		})
+		return
+	}
+	if err := sqlDB.Ping(); err != nil {
 		c.JSON(http.StatusServiceUnavailable, gin.H{
 			"message": "pong",
 			"db_status": "disconnected",
@@ -27,5 +36,4 @@ func (h *HealthHandler) Ping(c *gin.Context) {
 		"message": "pong",
 		"db_status": "connected",
 	})
-
 }

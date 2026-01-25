@@ -1,6 +1,11 @@
 package config
 
-import "os"
+import (
+	"log"
+	"os"
+
+	"github.com/go-playground/locales/kea"
+)
 
 type Config struct {
 	DBHost string
@@ -13,19 +18,27 @@ type Config struct {
 
 func Load() *Config {
 	return &Config{
-		DBHost: getEnv("DB_HOST", "localhost"),
-		DBPort: getEnv("DB_PORT", "3306"),
-		DBUser: getEnv("DB_USER", "root"),
-		DBPassword: getEnv("DB_PASSWORD", "password"),
-		DBName: getEnv("DB_NAME", "testdb"),
+		DBHost: mustEnv("DB_HOST"),	
+		DBPort: getEnv("DB_PORT", "5432"),
+		DBUser: mustEnv("DB_USER"),
+		DBPassword: mustEnv("DB_PASSWORD"),
+		DBName: mustEnv("DB_NAME"),
 		ServerPort: getEnv("SERVER_PORT", "8080"),
 	}
 }
 
-// 存在しないときはデフォルト値を返す
-func getEnv(key, defaultValue string) string {
-	if value := os.Getenv(key); value != ""{
-		return value
+func mustEnv(key: string) string {
+	value, ok := os.LookupEnv(key)
+	if !ok || value == "" {
+		log.Fatalf("Error: 環境変数 %sが設定されていません。", key)
 	}
-	return defaultValue
+	return value
+}
+
+func getEnv(key, defaultValue: string) string {
+	value, ok := os.LookupEnv(key)
+	if !ok || value == "" {
+		return defaultValue
+	}
+	return value
 }
