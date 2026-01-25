@@ -16,7 +16,6 @@ func main() {
 	if err := database.Connect(cfg); err !=nil {
 		log.Fatalf("Failed to connect to database: %v", err)
 	}
-	defer database.Close()
 
 	r := gin.Default()
 
