@@ -1,32 +1,21 @@
 version: "3.9"
 services:
   db:
-    image: mysql:8.4
-    container_name: mysql_line_reserv
+    image: postgres:latest
+    container_name: postgres_line_reserv
     environment:
-      MYSQL_ROOT_PASSWORD: rootpass
-      MYSQL_DATABASE: line_reserv_db
-      MYSQL_USER: kazuki
-      MYSQL_PASSWORD: 25251061k
+      POSTGRES_DB: ${DB_NAME}
+      POSTGRES_USER: ${DB_USER}
+      POSTGRES_PASSWORD: ${DB_PASSWORD}
       TZ: Asia/Tokyo
     ports:
-      - "3306:3306"
+      - "5432:5432"
     volumes:
-      - db_data:/var/lib/mysql
+      - db_data:/var/lib/postgresql/
     networks:
       - line_reserv_network
     healthcheck:
-      test:
-        [
-          "CMD",
-          "mysqladmin",
-          "ping",
-          "-h",
-          "localhost",
-          "-u",
-          "root",
-          "-prootpass",
-        ]
+      test: ["CMD-SHELL", "pg_isready -U ${POSTGRES_USER} -d ${POSTGRES_DB}"]
       interval: 10s
       timeout: 5s
       retries: 5
