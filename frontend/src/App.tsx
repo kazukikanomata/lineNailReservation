@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import "./App.css";
 import { apiClient } from "./client";
+import { NailCoursesMenu } from "./Menu";
 
 function App() {
   const [healthStatus, setHealthStatus] = useState<string>("checking....");
@@ -22,6 +23,7 @@ function App() {
       <div className="card">
         <p>Status: {healthStatus}</p>
       </div>
+      <NailCoursesMenu />
     </>
   );
 }
