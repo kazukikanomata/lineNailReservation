@@ -9,7 +9,7 @@ type NailCourse = {
 };
 
 // 初期値の定義
-const courses: NailCourse[] = [
+export const COURSES: NailCourse[] = [
   {
     id: "1",
     name: "ワンカラー",
@@ -56,18 +56,3 @@ const courses: NailCourse[] = [
     isOffIncluded: false,
   },
 ];
-
-export const NailCoursesMenu = () => {
-  return (
-    <div>
-      <h2>ネイルメニュー</h2>
-      <ul>
-        {courses.map((course) => (
-          <li key={course.id}>
-            <strong>{course.name}</strong>
-          </li>
-        ))}
-      </ul>
-    </div>
-  );
-};

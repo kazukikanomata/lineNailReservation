@@ -1,9 +1,7 @@
 import { useEffect, useState } from "react";
-import "./App.css";
-import { apiClient } from "./client";
-import { NailCoursesMenu } from "./Menu";
+import { apiClient } from "../services/client";
 
-function App() {
+export const useHealthCheck = () => {
   const [healthStatus, setHealthStatus] = useState<string>("checking....");
 
   useEffect(() => {
@@ -17,15 +15,5 @@ function App() {
       });
   }, []);
 
-  return (
-    <>
-      <h1>LINE Reservation App</h1>
-      <div className="card">
-        <p>Status: {healthStatus}</p>
-      </div>
-      <NailCoursesMenu />
-    </>
-  );
-}
-
-export default App;
+  return { healthStatus };
+};
