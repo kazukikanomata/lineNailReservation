@@ -1,16 +1,9 @@
-import { NailCoursesMenu } from "../components/menu";
-import { HealthStatusDisplay } from "../components/healthStatus";
-import { useHealthCheck } from "../hooks/useHealthCheck";
+import HomeForm from "./features/home-form";
 
-function App() {
-  const { healthStatus } = useHealthCheck();
+export default function Home() {
   return (
     <>
-      <h1>LINE Reservation App</h1>
-      <HealthStatusDisplay status={healthStatus} />
-      <NailCoursesMenu />
+      <HomeForm />
     </>
   );
 }
-
-export default App;
