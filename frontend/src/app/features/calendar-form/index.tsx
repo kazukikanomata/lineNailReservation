@@ -1,27 +1,50 @@
 "use client";
+import { Modal } from "@/app/components/modals";
 import { useRouter } from "next/navigation";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 
 function CalendarForm() {
   const router = useRouter();
+  const [selectedDate, setSelectedDate] = useState<string | null>(null);
+  const [modalOpen, setModalOpen] = useState(false);
+
   useEffect(() => {
     import("cally");
   }, []);
 
-  const handleChange = (event: Event) => {
+  const handleDateChange = (event: Event) => {
     const target = event.target as HTMLElement & { value?: string };
-    const selectedDate = target.value;
+    const date = target.value;
+    if (!date) return;
+    setSelectedDate(date);
+    setModalOpen(true);
+  };
+
+  // 引用元：https://wicky.nillia.ms/cally/
+  const handleConfirmChange = (time: string) => {
     if (!selectedDate) return;
-    router.push(`/reservation?date=${encodeURIComponent(selectedDate)}`);
+    const qs = new URLSearchParams({ date: selectedDate, time });
+    setModalOpen(false);
+    router.push(`/reservation?${qs.toString()}`);
+  };
+
+  const handleModalClose = () => {
+    setModalOpen(false);
   };
 
   return (
     <>
       <h1>Calendar</h1>
-      {/* https://wicky.nillia.ms/cally/ */}
-      <calendar-date onchange={handleChange}>
+      <calendar-date onchange={handleDateChange}>
         <calendar-month />
       </calendar-date>
+
+      <Modal
+        open={modalOpen}
+        selectedDate={selectedDate}
+        onClose={handleModalClose}
+        onConfirm={handleConfirmChange}
+      />
     </>
   );
 }
