@@ -18,3 +18,13 @@ backend/
 ├── database/ # DB接続管理
 └── config/ # 設定管理
 ```
+
+## マイグレーションやり直す
+
+コンテナ停止 + DBボリューム削除
+
+- $ docker compose down -v
+
+再ビルドして起動
+
+- $docker compose up --build

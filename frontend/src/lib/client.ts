@@ -1,4 +1,4 @@
-import { API_BASE_URL } from "../env";
+import { API_BASE_URL } from "../app/env";
 
 export const apiClient = {
   async get<T>(endpoint: string): Promise<T> {

@@ -1,4 +1,5 @@
 "use client";
+import BackButton from "@/app/components/backButton";
 import { Modal } from "@/app/components/modals";
 import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
@@ -34,6 +35,9 @@ function CalendarForm() {
 
   return (
     <>
+      <div className="mb-3">
+        <BackButton fallbackHref="/" />
+      </div>
       <h1>Calendar</h1>
       <calendar-date onchange={handleDateChange}>
         <calendar-month />

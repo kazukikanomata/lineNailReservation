@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { apiClient } from "../services/client";
+import { apiClient } from "../../lib/client";
 
 export const useHealthCheck = () => {
   const [healthStatus, setHealthStatus] = useState<string>("checking....");
