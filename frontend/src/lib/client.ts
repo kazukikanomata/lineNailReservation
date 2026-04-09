@@ -1,27 +1,28 @@
-import { API_BASE_URL } from "../app/env";
+import { env } from "@/env";
 
-export const apiClient = {
-  async get<T>(endpoint: string): Promise<T> {
-    const response = await fetch(`${API_BASE_URL}${endpoint}`);
-    console.log(API_BASE_URL);
-    console.log(endpoint);
-    if (!response.ok) {
-      throw new Error(`API Error: ${response.statusText}`);
-    }
-    return response.json();
-  },
+type CreateHttpClientOptions = {
+  baseUrl: string;
+  defaultHeaders?: HeadersInit;
+}
 
-  async post<T>(endpoint: string, data: unknown): Promise<T> {
-    const response = await fetch(`${API_BASE_URL}${endpoint}`, {
-      method: "POST",
+export function createHttpClient({
+  baseUrl,
+  defaultHeaders,
+}: CreateHttpClientOptions) {
+  const request = (path: string, init?: RequestInit) =>
+    fetch(`${baseUrl.replace(/\/$/, "")}/${path.replace(/^\//, "")}`, {
+      ...init,
       headers: {
-        "Content-Type": "application/json",
+        ...defaultHeaders,
+        ...init?.headers,
       },
-      body: JSON.stringify(data),
     });
-    if (!response.ok) {
-      throw new Error(`API Error: ${response.statusText}`);
-    }
-    return response.json();
+  return { baseUrl, request };
+}
+
+export const httpClient = createHttpClient({
+  baseUrl: env.API_BASE_URL,
+  defaultHeaders: {
+    Accept: "application/json"
   },
-};
+});

@@ -1,4 +1,4 @@
-import ReservationForm from "../features/reservation/reservation-form";
+import ReservationForm from "../../components/reservation/reservation-form";
 
 type Props = {
   searchParams: Promise<{ date?: string }>;

@@ -1,6 +1,6 @@
 "use client";
-import BackButton from "@/app/components/backButton";
-import { Modal } from "@/app/components/modals";
+import BackButton from "@/components/backButton";
+import { Modal } from "@/components/modals";
 import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
 

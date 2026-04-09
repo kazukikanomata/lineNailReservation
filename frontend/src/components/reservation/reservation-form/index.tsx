@@ -1,5 +1,5 @@
 import Link from "next/link";
-import { createReservation } from "../actions/reservation-action-schema";
+import { createReservation } from "../../../features/reservation/actions/reservation-action-schema";
 
 type Props = { date?: string };
 

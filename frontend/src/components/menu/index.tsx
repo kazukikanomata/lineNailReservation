@@ -1,4 +1,4 @@
-import { COURSES } from "@/app/models/nail-menu";
+import { COURSES } from "@/models/nail-menu";
 import Link from "next/link";
 
 export const NailCoursesMenu = () => {
