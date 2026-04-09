@@ -40,24 +40,6 @@ services:
     networks:
       - line_reserv_network
     restart: unless-stopped
-
-  frontend:
-    build:
-      context: ./frontend
-      dockerfile: Dockerfile
-    container_name: frontend_line_reserv
-    ports:
-      - "3000:3000"
-    environment:
-      VITE_API_BASE_URL: /api/v1
-    depends_on:
-      - api
-    networks:
-      - line_reserv_network
-    volumes:
-      - ./frontend:/app
-      - /app/node_modules
-
 volumes:
   db_data:
 

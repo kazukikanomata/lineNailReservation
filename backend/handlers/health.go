@@ -7,15 +7,17 @@ import (
 	"github.com/kazukikanomata/backend/database"
 )
 
-type HealthHandler struct {}
+type HealthHandler struct {
+	repo *database.Repository
+}
 
-func NewHealthHandler() *HealthHandler {
+func NewHealthHandler(repo *database.Repository) *HealthHandler {
 	return  &HealthHandler{}
 
 }
 
 func (h *HealthHandler) Ping(c *gin.Context) {
-	sqlDB, err := database.GetDB().DB()
+	sqlDB, err := h.repo.DB().DB()
 	if err != nil {
 		c.JSON(http.StatusServiceUnavailable, gin.H{
 			"message": "pong",

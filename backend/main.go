@@ -13,8 +13,9 @@ func main() {
 
 	cfg := config.Load()
 
-	if err := database.Connect(cfg); err !=nil {
-		log.Fatalf("Failed to connect to database: %v", err)
+	repo, err := database.NewRepository(cfg)
+	if err != nil {
+		log.Fatalf("DBの初期化に失敗しました: %v", err)
 	}
 
 	r := gin.Default()
@@ -31,7 +32,7 @@ func main() {
 		c.Next()
 	})
 
-	routes.SetupRoutes(r)
+	routes.SetupRoutes(r, repo)
 
 	
 	if err := r.Run(":" + cfg.ServerPort); err !=nil {
