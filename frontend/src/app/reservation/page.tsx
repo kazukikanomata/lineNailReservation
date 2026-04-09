@@ -6,9 +6,5 @@ type Props = {
 
 export default async function Reserve({ searchParams }: Props) {
   const { date } = await searchParams;
-  return (
-    <>
-      <ReservationForm date={date} />
-    </>
-  );
+  return <ReservationForm date={date} />;
 }
