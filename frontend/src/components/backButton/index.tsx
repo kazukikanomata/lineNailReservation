@@ -16,12 +16,15 @@ export default function BackButton({
   const router = useRouter();
 
   const handleBack = () => {
-    if (window.history.length > 1) {
+    const hasInternalReferrer = document.referrer.includes(
+      window.location.host,
+    );
+    if (hasInternalReferrer) {
       router.back();
-      return;
-    }
-    if (fallbackHref) {
+    } else if (fallbackHref) {
       router.push(fallbackHref);
+    } else {
+      router.push("/");
     }
   };
 

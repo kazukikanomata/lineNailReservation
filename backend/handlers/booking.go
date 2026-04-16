@@ -31,7 +31,7 @@ type CreateBookingRequest struct {
 // コンストラクタ
 // *で場所を返す。 &でインスタンスしたものを返す
 func NewNailBookingHandler(repo *database.Repository) *NailBookingHandler {
-	return &NailBookingHandler{}
+	return &NailBookingHandler{repo: repo}
 }
 
 // scheduled_atとstart_atをAsia/Tokyoでまとめる
