@@ -83,6 +83,7 @@ func (h *NailBookingHandler) Create(c *gin.Context){
 		ScheduledAt: req.ScheduledAt,
 		StartAt:     startAt,
 		EndAt:       endAt,
+		DurationMinutes: menu.DurationMinutes,
 		Remark:      req.Remark,
 	}
 
