@@ -27,8 +27,6 @@ export default function RootLayout({
       >
         {/* スマホサイズに制限したコンテナ */}
         <div className="w-full max-w-[390px] min-h-screen flex flex-col">
-
-          {/* ヘッダー */}
           <header className="neu-surface mx-4 mt-6 px-6 py-4 rounded-2xl flex items-center justify-between">
             <div>
               <p className="text-[10px] font-semibold tracking-[0.2em] uppercase text-[#b08a8a]">
@@ -39,19 +37,24 @@ export default function RootLayout({
               </h1>
             </div>
             <div className="neu-btn w-10 h-10 rounded-xl flex items-center justify-center text-[#9e9590]">
-              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+              <svg
+                width="18"
+                height="18"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                strokeWidth="2"
+                strokeLinecap="round"
+                strokeLinejoin="round"
+              >
                 <circle cx="12" cy="8" r="4" />
                 <path d="M4 20c0-4 3.6-7 8-7s8 3 8 7" />
               </svg>
             </div>
           </header>
-
-          {/* メインコンテンツ */}
-          <main className="flex-1 overflow-y-auto px-4 py-4">
+          <main className="neu-surface mx-4 my-4 rounded-2xl flex flex-1 px-4 py-4">
             {children}
           </main>
-
-          {/* ボトムナビゲーション */}
           <BottomNav />
         </div>
       </body>
