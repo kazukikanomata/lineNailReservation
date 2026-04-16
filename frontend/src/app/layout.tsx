@@ -28,8 +28,8 @@ export default function RootLayout({
       className={`${geistSans.variable} ${geistMono.variable} h-full antialiased`}
     >
       <body>
-        <div className="grid min-h-screen place-content-center p-4 sm:p-6 md:p-8 lg:12">
-          <div className="w-full max-w-[min(100%,24rem)] space-y-4 sm:max-w-xl sm:space-y-5 md:max-w-2xl md:space-y-6 lg:max-w-3xl">
+        <div className="grid min-h-screen place-content-center">
+          <div className="w-full sm:max-w-xl sm:space-y-5 md:max-w-2xl md:space-y-6 lg:max-w-3xl">
             {children}
           </div>
         </div>

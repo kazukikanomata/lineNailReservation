@@ -1,9 +1,5 @@
-import CalendarForm from "../../features/calendar-form";
+import CalendarForm from "@/features/calendar";
 
 export default function Calendar() {
-  return (
-    <>
-      <CalendarForm />
-    </>
-  );
+  return <CalendarForm />;
 }

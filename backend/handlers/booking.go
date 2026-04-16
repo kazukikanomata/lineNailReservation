@@ -31,7 +31,7 @@ type CreateBookingRequest struct {
 // コンストラクタ
 // *で場所を返す。 &でインスタンスしたものを返す
 func NewNailBookingHandler(repo *database.Repository) *NailBookingHandler {
-	return &NailBookingHandler{}
+	return &NailBookingHandler{repo: repo}
 }
 
 // scheduled_atとstart_atをAsia/Tokyoでまとめる
@@ -83,6 +83,7 @@ func (h *NailBookingHandler) Create(c *gin.Context){
 		ScheduledAt: req.ScheduledAt,
 		StartAt:     startAt,
 		EndAt:       endAt,
+		DurationMinutes: menu.DurationMinutes,
 		Remark:      req.Remark,
 	}
 

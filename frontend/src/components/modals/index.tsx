@@ -1,4 +1,5 @@
 import { useEffect, useRef, useState } from "react";
+import { Button } from "../ui/button";
 
 export type TimePickModal = {
   open: boolean;
@@ -16,7 +17,7 @@ export function Modal({
   const dialogRef = useRef<HTMLDialogElement>(null);
   const [time, setTime] = useState("00:00");
 
-  //   このあたりの解説欲しいかも
+  // このあたりの解説欲しいかも
   useEffect(() => {
     const el = dialogRef.current;
     if (!el) return;
@@ -57,9 +58,9 @@ export function Modal({
           >
             キャンセル
           </button>
-          <button type="button" className="btn" onClick={handleConfirm}>
+          <Button variant="primary" onClick={handleConfirm}>
             この日時で決める
-          </button>
+          </Button>
         </div>
       </div>
     </dialog>
