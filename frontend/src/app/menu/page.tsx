@@ -1,5 +1,5 @@
-import { NailCoursesMenu } from "@/components/menu";
+import { NailCourseMenu } from "@/components/nail-course-menu";
 
 export default function Menu() {
-  return <NailCoursesMenu />;
+  return <NailCourseMenu />;
 }

@@ -25,9 +25,8 @@ export default function RootLayout({
         className="min-h-screen flex justify-center"
         style={{ fontFamily: "var(--font-nunito), sans-serif" }}
       >
-        {/* スマホサイズに制限したコンテナ */}
         <div className="w-full max-w-[390px] min-h-screen flex flex-col">
-          <header className="neu-surface mx-4 mt-6 px-6 py-4 rounded-2xl flex items-center justify-between">
+          <header className="neu-surface mx-2 mt-6 px-6 py-4 rounded-2xl flex items-center justify-between">
             <div>
               <p className="text-[10px] font-semibold tracking-[0.2em] uppercase text-[#b08a8a]">
                 Nail Salon
@@ -52,7 +51,7 @@ export default function RootLayout({
               </svg>
             </div>
           </header>
-          <main className="neu-surface mx-4 my-4 rounded-2xl flex flex-1 px-4 py-4">
+          <main className="neu-surface mx-2 my-4 rounded-2xl flex flex-1 px-2 py-6 overflow-y-auto">
             {children}
           </main>
           <BottomNav />

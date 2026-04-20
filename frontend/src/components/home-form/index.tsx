@@ -1,4 +1,5 @@
 import Link from "next/link";
+import { Typography } from "../ui/typography";
 function HomeForm() {
   return (
     <>
@@ -11,10 +12,9 @@ function HomeForm() {
             Reservation.
           </p>
         </div>
-
-        <p className="font-['Inter','Noto_Sans_JP',sans-serif] font-light text-base text-black opacity-72 leading-snug">
+        <Typography size="sm" variant="muted" align="left">
           自分に合うデザインが見つかる
-        </p>
+        </Typography>
         <Link href="/menu" className="btn btn-outline btn-neutral-content">
           メニューを選ぶ
         </Link>

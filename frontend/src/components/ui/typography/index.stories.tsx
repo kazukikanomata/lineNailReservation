@@ -9,9 +9,6 @@ const meta: Meta<typeof Typography> = {
     as: {
       control: "select",
     },
-    variant: {
-      control: "select",
-    },
     align: {
       control: "select",
     },
@@ -31,7 +28,6 @@ type Story = StoryObj<typeof Typography>;
 export const Default: Story = {
   args: {
     children: "これがデフォルトのテキスト",
-    variant: "body",
     color: "base-content",
   },
 };
@@ -39,13 +35,13 @@ export const Default: Story = {
 export const Heading: Story = {
   render: (arges) => (
     <div className="flex flex-col gap4">
-      <Typography {...arges} variant="h1">
+      <Typography {...arges} size="lg">
         h1: タイトル1
       </Typography>
-      <Typography {...arges} variant="h2">
+      <Typography {...arges} size="base">
         h2: タイトル2
       </Typography>
-      <Typography {...arges} variant="h3">
+      <Typography {...arges} size="sm">
         h3: タイトル3
       </Typography>
     </div>
@@ -76,12 +72,6 @@ export const Weights: Story = {
     <div className="flex flex-col gap-2">
       <Typography {...args} weight="light">
         Light Weight Text
-      </Typography>
-      <Typography {...args} weight="normal">
-        Normal Weight Text
-      </Typography>
-      <Typography {...args} weight="medium">
-        Medium Weight Text
       </Typography>
       <Typography {...args} weight="bold">
         Bold Weight Text
