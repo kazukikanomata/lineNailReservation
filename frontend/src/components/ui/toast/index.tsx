@@ -1,26 +1,34 @@
-type ToastProps = {
+"use client";
+
+import { cn } from "@/lib/utils";
+import { cva, VariantProps } from "class-variance-authority";
+
+const toastStyles = cva("alert flex items-center gap-2 transition-all", {
+  variants: {
+    variant: {
+      default: "toast toast-center",
+    },
+    alert: {
+      info: "alert alert-info",
+      error: "alert alert-error",
+    },
+  },
+  defaultVariants: {
+    variant: "default",
+  },
+});
+
+export interface ToastProps
+  extends
+    React.HTMLAttributes<HTMLDivElement>,
+    VariantProps<typeof toastStyles> {
   message: string;
-  status?: "info" | "success" | "error" | "warning";
-  vertical?: "top" | "middle" | "bottom";
-  horizontal?: "start" | "center" | "end";
-};
+}
 
-export const Toast = ({
-  message,
-  status = "info",
-  vertical = "middle",
-  horizontal = "center",
-}: ToastProps) => {
-  const statusClasses = {
-    info: "alert-info",
-    success: "alert-success",
-    error: "alert-error",
-    warning: "alert-warning",
-  }[status];
-
+export const Toast = ({ message, alert, className, ...props }: ToastProps) => {
   return (
-    <div className={`toast toast-${vertical} toast-${horizontal}`}>
-      <div className={`alert ${statusClasses} shadow-lg`}>
+    <div className={cn(toastStyles({ variant: "default" }))}>
+      <div className={cn(toastStyles({ alert }), className)} {...props}>
         <span>{message}</span>
       </div>
     </div>

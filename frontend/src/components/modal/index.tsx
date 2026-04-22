@@ -1,5 +1,6 @@
 import { useEffect, useRef, useState } from "react";
 import { Button } from "../ui/button";
+import { Typography } from "../ui/typography";
 
 export type TimePickModal = {
   open: boolean;
@@ -36,28 +37,28 @@ export function Modal({
       className="modal modal-bottom sm:modal-middle"
       onClose={onClose}
     >
-      <div className="modal-box">
-        <h3 className="font-bold text-lg">予約時間を選択</h3>
+      <div className="modal-box bg-gray-50">
+        <Typography variant="primary">予約時間を選択</Typography>
         {/* これも解説したいかも */}
         {/* trueならselectedDateでそれ以外はnullって書き方かな？ */}
-        {selectedDate ? <p className="py-4">日付: {selectedDate}</p> : null}
-        <label className="label flex flex-col gap-2">
-          <span className="label-text">時間</span>
-          <input
-            type="time"
-            className="input input-bordered w-full max-w-xs"
-            value={time}
-            onChange={(e) => setTime(e.target.value)}
-          />
-        </label>
+        {selectedDate ? (
+          <Typography size="sm" as="div">
+            日付:{selectedDate}
+          </Typography>
+        ) : null}
+        <Typography size="sm" as="div">
+          時間
+        </Typography>
+        <input
+          type="time"
+          className="input input-ghost bg-transparent text-slate-700"
+          value={time}
+          onChange={(e) => setTime(e.target.value)}
+        />
         <div className="modal-action">
-          <button
-            type="button"
-            className="btn"
-            onClick={() => dialogRef.current?.close()}
-          >
+          <Button variant="accent" onClick={() => dialogRef.current?.close()}>
             キャンセル
-          </button>
+          </Button>
           <Button variant="primary" onClick={handleConfirm}>
             この日時で決める
           </Button>

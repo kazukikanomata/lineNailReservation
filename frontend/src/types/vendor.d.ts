@@ -1,3 +1,5 @@
+import { HTMLAttributes } from "react";
+
 interface CallyChangeEvent extends Event {
   target: HTMLElement & { value: string };
 }
@@ -9,7 +11,10 @@ declare global {
         onchange?: (event: CallyChangeEvent) => void;
         className?: string;
       };
-      "calendar-month": HTMLAttributes<HTMLElement>;
+      "calendar-month": DetailedHTMLProps<
+        HTMLAttributes<HTMLElement>,
+        HTMLElement
+      >;
     }
   }
 }

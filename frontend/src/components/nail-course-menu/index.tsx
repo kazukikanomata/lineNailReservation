@@ -1,64 +1,7 @@
 import Link from "next/link";
 import { Typography } from "../ui/typography";
 import { Button } from "../ui/button";
-
-type NailCourse = {
-  id: string;
-  name: string;
-  price: number;
-  durationMinutes: number;
-  description?: string;
-  imageUrl?: string;
-  isOffIncluded: boolean;
-};
-
-export const courses: NailCourse[] = [
-  {
-    id: "1",
-    name: "ワンカラー",
-    price: 5000,
-    durationMinutes: 90,
-    description: "シンプルで上品なワンカラーネイル",
-    imageUrl: "/images/one_color.jpg",
-    isOffIncluded: false,
-  },
-  {
-    id: "2",
-    name: "マグネットカラー",
-    price: 5000,
-    durationMinutes: 90,
-    description: "マグネットを使ったネイル",
-    imageUrl: "/images/two_color.jpg",
-    isOffIncluded: false,
-  },
-  {
-    id: "3",
-    name: "フレンチネイル",
-    price: 7000,
-    durationMinutes: 120,
-    description: "上品なフレンチネイル",
-    imageUrl: "/images/french.jpg",
-    isOffIncluded: false,
-  },
-  {
-    id: "4",
-    name: "グラデーションネイル",
-    price: 7000,
-    durationMinutes: 120,
-    description: "グラデーションを使ったネイル",
-    imageUrl: "/images/gradient.jpg",
-    isOffIncluded: false,
-  },
-  {
-    id: "5",
-    name: "オフのみ",
-    price: 3000,
-    durationMinutes: 60,
-    description: "オフのみのサービス",
-    imageUrl: "/images/off_only.jpg",
-    isOffIncluded: false,
-  },
-];
+import { courses } from "@/lib/courses";
 
 export const NailCourseMenu = () => {
   return (
@@ -71,7 +14,7 @@ export const NailCourseMenu = () => {
           タップしてメニューを選択
         </Typography>
         {courses.map((course) => (
-          <Link href={`/calendar`} key={course.id}>
+          <Link href={`/calendar?courseId=${course.id}`} key={course.id}>
             <div className="flex items-center gap-4 transition-transform duration-150">
               {/* 左側 */}
               <div className="w-16 h-15 rounded-2xl neu-surface overflow-hidden flex-shrink-0 border-white/30">
