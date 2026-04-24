@@ -1,10 +1,10 @@
 import BookingForm from "@/components/booking-form";
 
 type ReserveProps = {
-  searchParams: Promise<{ date?: string }>;
+  searchParams: Promise<{ courseId?: string; date?: string; time?: string }>;
 };
 
 export default async function Reserve({ searchParams }: ReserveProps) {
-  const { date } = await searchParams;
-  return <BookingForm date={date} />;
+  const { courseId, date, time } = await searchParams;
+  return <BookingForm courseId={courseId} date={date} time={time} />;
 }

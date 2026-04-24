@@ -1,12 +1,14 @@
 "use client";
 import { Modal } from "@/components/modal";
 import { Typography } from "@/components/ui/typography";
-import { useRouter } from "next/navigation";
+import { useRouter, useSearchParams } from "next/navigation";
 import { useEffect, useState } from "react";
 import { Button } from "../ui/button";
 
 function CalendarForm() {
   const router = useRouter();
+  const searchParams = useSearchParams();
+  const courseId = searchParams.get("courseId") ?? "";
   const [selectedDate, setSelectedDate] = useState<string | null>(null);
   const [modalOpen, setModalOpen] = useState(false);
 
@@ -25,7 +27,11 @@ function CalendarForm() {
   // 引用元：https://wicky.nillia.ms/cally/
   const handleConfirmChange = (time: string) => {
     if (!selectedDate) return;
-    const qs = new URLSearchParams({ date: selectedDate, time });
+    const qs = new URLSearchParams({
+      courseId,
+      date: selectedDate,
+      time,
+    });
     setModalOpen(false);
     router.push(`/reservation?${qs.toString()}`);
   };
