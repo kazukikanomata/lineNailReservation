@@ -20,28 +20,34 @@ body {
 /* 浮き出し（カード・パネル用） */
 .neu-surface {
   background: var(--neu-bg);
-  box-shadow: 8px 8px 16px var(--neu-shadow-dark),
-              -8px -8px 16px var(--neu-shadow-light);
+  box-shadow:
+    8px 8px 16px var(--neu-shadow-dark),
+    -8px -8px 16px var(--neu-shadow-light);
 }
 
 /* 押し込み（インプット・アクティブ要素用） */
 .neu-inset {
   background: var(--neu-bg);
-  box-shadow: inset 5px 5px 10px var(--neu-shadow-dark),
-              inset -5px -5px 10px var(--neu-shadow-light);
+  box-shadow:
+    inset 5px 5px 10px var(--neu-shadow-dark),
+    inset -5px -5px 10px var(--neu-shadow-light);
 }
 
 /* ボタン */
 .neu-btn {
   background: var(--neu-bg);
-  box-shadow: 5px 5px 10px var(--neu-shadow-dark),
-              -5px -5px 10px var(--neu-shadow-light);
-  transition: box-shadow 0.15s ease, transform 0.1s ease;
+  box-shadow:
+    5px 5px 10px var(--neu-shadow-dark),
+    -5px -5px 10px var(--neu-shadow-light);
+  transition:
+    box-shadow 0.15s ease,
+    transform 0.1s ease;
   cursor: pointer;
 }
 
 .neu-btn:active {
-  box-shadow: inset 4px 4px 8px var(--neu-shadow-dark),
-              inset -4px -4px 8px var(--neu-shadow-light);
+  box-shadow:
+    inset 4px 4px 8px var(--neu-shadow-dark),
+    inset -4px -4px 8px var(--neu-shadow-light);
   transform: scale(0.98);
 }
