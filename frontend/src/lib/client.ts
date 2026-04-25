@@ -3,7 +3,7 @@ import { env } from "@/env";
 type CreateHttpClientOptions = {
   baseUrl: string;
   defaultHeaders?: HeadersInit;
-}
+};
 
 export function createHttpClient({
   baseUrl,
@@ -23,6 +23,6 @@ export function createHttpClient({
 export const httpClient = createHttpClient({
   baseUrl: env.API_BASE_URL,
   defaultHeaders: {
-    Accept: "application/json"
+    Accept: "application/json",
   },
 });
