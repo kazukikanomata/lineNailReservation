@@ -21,7 +21,7 @@ export function createHttpClient({
 }
 
 export const httpClient = createHttpClient({
-  baseUrl: env.API_BASE_URL,
+  baseUrl: env.NEXT_PUBLIC_API_BASE_URL,
   defaultHeaders: {
     Accept: "application/json",
   },
