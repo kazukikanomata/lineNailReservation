@@ -1,15 +1,8 @@
 import HomeForm from "@/components/home-form";
-import { requireAuth } from "@/lib/superbase/auth";
 
 export default async function Home() {
-  const user = await requireAuth();
-  console.log("ユーザー情報:", { user: user?.email });
   return (
     <>
-      {/* fix: 多分不要 */}
-      <main>
-        <h1>ようこそ、{user.email}さん</h1>
-      </main>
       <HomeForm />
     </>
   );
