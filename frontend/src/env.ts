@@ -7,6 +7,16 @@ interface Env {
   readonly API_BASE_URL: string;
 }
 
-export const env: Env = {
-  API_BASE_URL: process.env.NEXT_PUBLIC_API_BASE_URL as string,
-};
+import { createEnv } from "@t3-oss/env-nextjs";
+import z from "zod";
+
+export const env = createEnv({
+  skipValidation: process.env.SKIP_ENV_VALIDATION === "true",
+  server: {},
+  client: {
+    NEXT_PUBLIC_API_BASE_URL: z.string().url(),
+  },
+  runtimeEnv: {
+    NEXT_PUBLIC_API_BASE_URL: process.env.NEXT_PUBLIC_API_BASE_URL,
+  },
+});
