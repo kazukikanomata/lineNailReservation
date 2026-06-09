@@ -12,7 +12,7 @@ type HealthHandler struct {
 }
 
 func NewHealthHandler(repo *database.Repository) *HealthHandler {
-	return  &HealthHandler{}
+	return &HealthHandler{}
 
 }
 
@@ -20,22 +20,22 @@ func (h *HealthHandler) Ping(c *gin.Context) {
 	sqlDB, err := h.repo.DB().DB()
 	if err != nil {
 		c.JSON(http.StatusServiceUnavailable, gin.H{
-			"message": "pong",
+			"message":   "pong",
 			"db_status": "disconnected",
-			"error": err.Error(),
+			"error":     err.Error(),
 		})
 		return
 	}
 	if err := sqlDB.Ping(); err != nil {
 		c.JSON(http.StatusServiceUnavailable, gin.H{
-			"message": "pong",
+			"message":   "pong",
 			"db_status": "disconnected",
-			"error": err.Error(),
+			"error":     err.Error(),
 		})
 		return
 	}
 	c.JSON(http.StatusOK, gin.H{
-		"message": "pong",
+		"message":   "pong",
 		"db_status": "connected",
 	})
 }

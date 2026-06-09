@@ -8,20 +8,13 @@ const meta: Meta<typeof Button> = {
   argTypes: {
     variant: {
       control: "select",
-      options: [
-        "primary",
-        "secondary",
-        "neutral",
-        "accent",
-        "info",
-        "success",
-        "warning",
-        "error",
-      ],
+      options: ["primary", "accent", "inset"],
+    },
+    size: {
+      control: "select",
+      options: ["sm", "md", "lg", "responsive"],
     },
     outline: { control: "boolean" },
-    soft: { control: "boolean" },
-    dash: { control: "boolean" },
   },
 };
 
@@ -44,11 +37,10 @@ export const Outline: Story = {
   },
 };
 
-export const Soft: Story = {
+export const Inset: Story = {
   args: {
-    variant: "primary",
-    soft: true,
-    children: "Soft Button",
+    variant: "inset",
+    children: "Inset Button",
   },
 };
 
@@ -58,26 +50,11 @@ export const AllVariants: Story = {
       <Button {...args} variant="primary">
         Primary
       </Button>
-      <Button {...args} variant="secondary">
-        Secondary
-      </Button>
       <Button {...args} variant="accent">
         Accent
       </Button>
-      <Button {...args} variant="neutral">
-        Neutral
-      </Button>
-      <Button {...args} variant="info">
-        Info
-      </Button>
-      <Button {...args} variant="success">
-        Success
-      </Button>
-      <Button {...args} variant="warning">
-        Warning
-      </Button>
-      <Button {...args} variant="error">
-        Error
+      <Button {...args} variant="inset">
+        Inset
       </Button>
     </div>
   ),

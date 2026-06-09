@@ -38,11 +38,16 @@ func NewRepository(cfg *config.Config) (*Repository, error) {
 		return nil, err
 	}
 
+	if err := repo.BootstrapAdmin(cfg.AdminBootstrapEmail, cfg.AdminBootstrapPassword); err != nil {
+		return nil, fmt.Errorf("admin bootstrap failed: %w", err)
+	}
+
 	return repo, nil
 }
 
 func (r *Repository) init() error {
 	if err := r.db.AutoMigrate(
+		&models.Admin{},
 		&models.AdminSchedule{},
 		&models.Reservation{},
 		&models.Menu{},
@@ -55,22 +60,22 @@ func (r *Repository) init() error {
 func (r *Repository) SeedMenu() error {
 	var count int64
 	if err := r.db.Model(&models.Menu{}).Count(&count).Error; err != nil {
-		return err;
+		return err
 	}
-	
+
 	if count > seededCount {
-        return nil
-    }
+		return nil
+	}
 
-    if err := r.db.Create(&models.InitialMenus).Error; err != nil {
-        return err
-    }
+	if err := r.db.Create(&models.InitialMenus).Error; err != nil {
+		return err
+	}
 
-    log.Printf("seeded %d menu records", len(models.InitialMenus))
-    return nil
+	log.Printf("seeded %d menu records", len(models.InitialMenus))
+	return nil
 
 }
 
 func (r *Repository) DB() *gorm.DB {
-    return r.db
+	return r.db
 }
