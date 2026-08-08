@@ -12,21 +12,18 @@ import (
 	"gorm.io/gorm"
 )
 
-
 type NailBookingHandler struct {
 	repo *database.Repository
 }
 
 // 入力されるリクエスト値を定義
 type CreateBookingRequest struct {
-	UserName string `json:"user_name" binding:"required"`
-	MenuId uint `json:"menu_id" binding:"required"`
+	UserName    string `json:"user_name" binding:"required"`
+	MenuId      uint   `json:"menu_id" binding:"required"`
 	ScheduledAt string `json:"scheduled_at" binding:"required"` // 予約日
-	StartAt string `json:"start_at" binding:"required"` //　時間帯
-	Remark string `json:"remark"`
+	StartAt     string `json:"start_at" binding:"required"`     //　時間帯
+	Remark      string `json:"remark"`
 }
-
-
 
 // コンストラクタ
 // *で場所を返す。 &でインスタンスしたものを返す
@@ -36,7 +33,7 @@ func NewNailBookingHandler(repo *database.Repository) *NailBookingHandler {
 
 // scheduled_atとstart_atをAsia/Tokyoでまとめる
 
-func parseReservationStart(scheduledDate, startTime string)(time.Time, error) {
+func parseReservationStart(scheduledDate, startTime string) (time.Time, error) {
 	loc, err := time.LoadLocation("Asia/Tokyo")
 
 	if err != nil {
@@ -50,7 +47,7 @@ func parseReservationStart(scheduledDate, startTime string)(time.Time, error) {
 
 }
 
-func (h *NailBookingHandler) Create(c *gin.Context){
+func (h *NailBookingHandler) Create(c *gin.Context) {
 	var req CreateBookingRequest
 	if err := c.ShouldBindJSON(&req); err != nil {
 		c.JSON(http.StatusBadRequest, gin.H{"error": err.Error()})
@@ -64,7 +61,7 @@ func (h *NailBookingHandler) Create(c *gin.Context){
 		})
 		return
 	}
-	
+
 	db := h.repo.DB()
 	var menu models.Menu
 	if err := db.First(&menu, req.MenuId).Error; err != nil {
@@ -78,13 +75,13 @@ func (h *NailBookingHandler) Create(c *gin.Context){
 
 	endAt := startAt.Add(time.Duration(menu.DurationMinutes) * time.Minute)
 	reservation := models.Reservation{
-		UserName:    req.UserName,
-		MenuId:      req.MenuId,
-		ScheduledAt: req.ScheduledAt,
-		StartAt:     startAt,
-		EndAt:       endAt,
+		UserName:        req.UserName,
+		MenuId:          req.MenuId,
+		ScheduledAt:     req.ScheduledAt,
+		StartAt:         startAt,
+		EndAt:           endAt,
 		DurationMinutes: menu.DurationMinutes,
-		Remark:      req.Remark,
+		Remark:          req.Remark,
 	}
 
 	if err := db.Create(&reservation).Error; err != nil {
@@ -92,9 +89,8 @@ func (h *NailBookingHandler) Create(c *gin.Context){
 		return
 	}
 
-
 	c.JSON(http.StatusOK, gin.H{
-		"id": reservation.Id,
+		"id":          reservation.Id,
 		"description": "Reserve Success",
 	})
 }

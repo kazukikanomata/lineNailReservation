@@ -1,10 +1,12 @@
-import { HTMLAttributes } from "react";
-
-interface CallyChangeEvent extends Event {
-  target: HTMLElement & { value: string };
-}
+import type { DetailedHTMLProps, HTMLAttributes } from "react";
 
 declare global {
+  interface CallyChangeEvent extends Event {
+    target: HTMLElement & { value: string };
+  }
+}
+
+declare module "react" {
   namespace JSX {
     interface IntrinsicElements {
       "calendar-date": HTMLAttributes<HTMLElement> & {
@@ -18,3 +20,5 @@ declare global {
     }
   }
 }
+
+export {};

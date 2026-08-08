@@ -1,5 +1,9 @@
 import HomeForm from "@/components/home-form";
 
-export default function Home() {
-  return <HomeForm />;
+export default async function Home() {
+  return (
+    <>
+      <HomeForm />
+    </>
+  );
 }
